@@ -1,0 +1,1 @@
+jQuery(document).ready((function(e){jQuery("#course-certificate-template-options")&&jQuery("#course-certificate-template-options").select2({width:"100%"})}));
