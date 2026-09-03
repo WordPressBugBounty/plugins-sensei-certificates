@@ -1,4 +1,10 @@
 <?php
+/**
+ * Sensei LMS Certificates dependency checker.
+ *
+ * @package Sensei_Certificates
+ */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -9,8 +15,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @since 2.0.0
  */
 class Woothemes_Sensei_Certificates_Dependency_Checker {
-	const MINIMUM_PHP_VERSION    = '7.2';
-	const MINIMUM_SENSEI_VERSION = '1.11.0';
+	const MINIMUM_PHP_VERSION    = '7.4';
+	const MINIMUM_SENSEI_VERSION = '3.7.0';
 
 
 	/**

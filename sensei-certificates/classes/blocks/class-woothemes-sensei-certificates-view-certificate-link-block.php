@@ -18,11 +18,24 @@ class WooThemes_Sensei_Certificates_View_Certificate_Link_Block {
 	 * Sensei_Course_Overview_Block constructor.
 	 */
 	public function __construct() {
+		add_action( 'init', array( $this, 'register_block' ) );
+	}
+
+	/**
+	 * Register the block.
+	 *
+	 * Deferred to the `init` hook so that the block metadata (title, description)
+	 * in block.json is not translated before `init`, which would trigger a
+	 * `_load_textdomain_just_in_time` notice on WordPress 6.7+.
+	 *
+	 * @since 2.6.0
+	 */
+	public function register_block() {
 		Sensei_Blocks::register_sensei_block(
 			'sensei-certificates/view-certificate-link',
-			[
-				'render_callback' => [ $this, 'render' ],
-			],
+			array(
+				'render_callback' => array( $this, 'render' ),
+			),
 			WooThemes_Sensei_Certificates::instance()->assets->src_path( 'blocks/view-certificate-link' )
 		);
 	}
@@ -30,12 +43,9 @@ class WooThemes_Sensei_Certificates_View_Certificate_Link_Block {
 	/**
 	 * Renders View Certificate Link block on the frontend.
 	 *
-	 * @param array  $attributes Block attributes.
-	 * @param string $content    Inner block content.
-	 *
 	 * @return string HTML of the block.
 	 */
-	public function render( array $attributes, string $content ): string {
+	public function render(): string {
 		$course_id = \Sensei_Utils::get_current_course();
 
 		// Check that the user has completed the course and it has a certificate
@@ -65,8 +75,8 @@ class WooThemes_Sensei_Certificates_View_Certificate_Link_Block {
 		return sprintf(
 			'<div %1$s><a href="%2$s">%3$s</a></div>',
 			$wrapper_attributes,
-			$certificate_url,
-			__( 'View Certificate', 'sensei-certificates' )
+			esc_url( $certificate_url ),
+			esc_html__( 'View Certificate', 'sensei-certificates' )
 		);
 	}
 }
